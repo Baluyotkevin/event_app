@@ -7,7 +7,7 @@ import { handleError } from '../utils';
 import { connectToDatabase } from '../database';
 import Order from '../database/models/order.model';
 import Event from '../database/models/event.model';
-import { ObjectId } from 'mongodb';
+import {ObjectId} from 'mongodb';
 import User from '../database/models/user.model';
 
 export const checkoutOrder = async (order: CheckoutOrderParams) => {
@@ -37,14 +37,13 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
       success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
     });
-
     redirect(session.url!)
   } catch (error) {
     throw error;
   }
 }
 
-// CREATES ORDER 
+
 export const createOrder = async (order: CreateOrderParams) => {
   try {
     await connectToDatabase();
