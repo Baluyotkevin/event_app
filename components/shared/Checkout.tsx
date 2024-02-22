@@ -14,8 +14,6 @@ const Checkout = ({ event, userId }: { event: IEvent, userId: string }) => {
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
-    console.log(query.get('success'))
-    console.log(query.get('canceled'))
     if (query.get('success')) {
       console.log('Order placed! You will receive an email confirmation.');
     }
