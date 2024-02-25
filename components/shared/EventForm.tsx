@@ -79,7 +79,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
     }
 
     if(type === 'Update') {
-      if(!eventId) {
+      if(!event?._id) {
         router.back()
         return;
       }
@@ -87,8 +87,8 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       try {
         const updatedEvent = await updateEvent({
           userId,
-          event: { ...values, imageUrl: uploadedImageUrl, _id: eventId },
-          path: `/events/${eventId}`
+          event: { ...values, imageUrl: uploadedImageUrl, _id: event?._id },
+          path: `/events/${event?._id}`
         })
 
         if(updatedEvent) {
