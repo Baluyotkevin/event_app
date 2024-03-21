@@ -14,7 +14,7 @@ export interface IEvent extends Document {
   url?: string;
   category: { _id: string, name: string }
   organizer: { _id: string, firstName: string, lastName: string },
-  review: { _id: string, firstName: string, lastName: string, body: string}
+  review: { _id: string, firstName: string, lastName: string, body: string, author: string, eventId: string }
 }
 
 const EventSchema = new Schema({

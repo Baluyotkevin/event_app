@@ -16,6 +16,7 @@ import {
   GetEventsByUserParams,
   GetRelatedEventsByCategoryParams,
 } from '@/types'
+import Review from '../database/models/review.model'
 
 const getCategoryByName = async (name: string) => {
   return Category.findOne({ name: { $regex: name, $options: 'i' } })
@@ -25,6 +26,7 @@ const populateEvent = (query: any) => {
   return query
     .populate({ path: 'organizer', model: User, select: '_id firstName lastName' })
     .populate({ path: 'category', model: Category, select: '_id name' })
+    // .populate({ path: 'review', model: Review, select: '_id firstName lastName body author eventId'})
 }
 
 // CREATE
@@ -171,3 +173,5 @@ export async function getRelatedEventsByCategory({
     handleError(error)
   }
 }
+
+// GET EVENTS REVIEWS

@@ -6,17 +6,17 @@ export type CreateUserParams = {
     username: string
     email: string
     photo: string
-  }
+}
   
-  export type UpdateUserParams = {
+export type UpdateUserParams = {
     firstName: string
     lastName: string
     username: string
     photo: string
-  }
+}
   
   // ====== EVENT PARAMS
-  export type CreateEventParams = {
+export type CreateEventParams = {
     userId: string
     event: {
       title: string
@@ -31,9 +31,22 @@ export type CreateUserParams = {
       url: string
     }
     path: string
-  }
+}
+
+export type CreateReviewParams = {
+  userId: string
+  review: {
+    title: string
+    body: string
+    createdAt: Date
+    updatedAt: Date
+    eventId: string
+  },
+  eventId: string,
+  path: string
+}
   
-  export type UpdateEventParams = {
+export type UpdateEventParams = {
     userId: string
     event: {
       _id: string
@@ -49,34 +62,39 @@ export type CreateUserParams = {
       url: string
     }
     path: string
-  }
+}
   
-  export type DeleteEventParams = {
+export type DeleteEventParams = {
     eventId: string
     path: string
-  }
+}
   
-  export type GetAllEventsParams = {
+export type GetAllEventsParams = {
     query: string
     category: string
     limit: number
     page: number
-  }
+}
   
-  export type GetEventsByUserParams = {
+export type GetEventsByUserParams = {
     userId: string
     limit?: number
     page: number
-  }
-  
-  export type GetRelatedEventsByCategoryParams = {
+}
+
+export type GetRelatedEventsByCategoryParams = {
     categoryId: string
     eventId: string
     limit?: number
     page: number | string
-  }
+}
+
+export type GetRelatedReviewsByEventId = {
+  userId: string
+  eventId: string
+}
   
-  export type Event = {
+export type Event = {
     _id: string
     title: string
     description: string
@@ -96,7 +114,7 @@ export type CreateUserParams = {
       _id: string
       name: string
     }
-  }
+}
   
   // ====== CATEGORY PARAMS
   export type CreateCategoryParams = {

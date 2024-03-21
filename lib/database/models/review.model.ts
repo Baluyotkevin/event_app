@@ -7,6 +7,7 @@ export interface IReview extends Document {
     createdAt: Date;
     updatedAt: Date;
     author: string;
+    eventId: string;
 }
 
 const ReviewSchema = new Schema({ 
@@ -14,7 +15,8 @@ const ReviewSchema = new Schema({
     body: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
-    author: { type: Schema.Types.ObjectId, ref: 'User' }
+    author: { type: Schema.Types.ObjectId, ref: 'User' },
+    eventId: { type: Schema.Types.ObjectId, ref: 'Event'},
 })
 
 const Review = models.Review || model('Review', ReviewSchema);

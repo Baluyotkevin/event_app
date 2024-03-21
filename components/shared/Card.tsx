@@ -67,6 +67,10 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
               <Image src="/assets/icons/arrow.svg" alt="search" width={10} height={10} />
             </Link>
           )}
+
+          <Link href={`/events/${event._id}/reviews/create`}>
+            Create Review
+          </Link>
         </div>
       </div>
     </div>

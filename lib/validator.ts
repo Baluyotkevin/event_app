@@ -11,4 +11,12 @@ export const eventFormSchema = z.object({
     price: z.string(),
     isFree: z.boolean(),
     url: z.string().url()
-  })
+})
+
+export const reviewFormSchema = z.object({
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  body: z.string().min(3, "Review must be at least 3 characters"),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  eventId: z.string()
+})

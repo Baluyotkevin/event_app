@@ -25,3 +25,11 @@ export const eventDefaultValues = {
     isFree: false,
     url: '',
 }
+
+export const reviewDefaultValues = {
+    title: '',
+    body: '',
+    eventId: '',
+    createdAt: new Date(),
+    updatedAt: new Date()
+}
