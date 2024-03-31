@@ -16,6 +16,8 @@ const Footer = () => {
           />
         </Link>
 
+        <a className='text-purple-400' target="_blank" href='https://www.linkedin.com/in/kevin-baluyot-2102b5bb/'>LinkedIn</a>
+        <a className='text-purple-400' target="_blank" href='https://github.com/Baluyotkevin'>Github</a>
         <p>2024 EventMeet. All Rights reserved.</p>
       </div>
     </footer>
