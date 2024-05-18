@@ -7,7 +7,7 @@ import { UrlQueryParams, RemoveUrlQueryParams } from '@/types'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
-}
+};
 
 export const formatDateTime = (dateString: Date) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
@@ -43,7 +43,7 @@ export const formatDateTime = (dateString: Date) => {
     dateOnly: formattedDate,
     timeOnly: formattedTime,
   }
-}
+};
 
 export const convertFileToUrl = (file: File) => URL.createObjectURL(file)
 
@@ -55,7 +55,7 @@ export const formatPrice = (price: string) => {
   }).format(amount)
 
   return formattedPrice
-}
+};
 
 export function formUrlQuery({ params, key, value }: UrlQueryParams) {
   const currentUrl = qs.parse(params)
@@ -69,7 +69,7 @@ export function formUrlQuery({ params, key, value }: UrlQueryParams) {
     },
     { skipNull: true }
   )
-}
+};
 
 export function removeKeysFromQuery({ params, keysToRemove }: RemoveUrlQueryParams) {
   const currentUrl = qs.parse(params)
@@ -85,9 +85,9 @@ export function removeKeysFromQuery({ params, keysToRemove }: RemoveUrlQueryPara
     },
     { skipNull: true }
   )
-}
+};
 
 export const handleError = (error: unknown) => {
   console.error(error)
   throw new Error(typeof error === 'string' ? error : JSON.stringify(error))
-}
+};

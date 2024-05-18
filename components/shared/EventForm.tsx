@@ -22,28 +22,27 @@ import { useRouter } from "next/navigation"
 import { createEvent, updateEvent } from "@/lib/actions/event.actions"
 import { IEvent } from "@/lib/database/models/event.model"
 
-
 type EventFormProps = {
   userId: string
   type: "Create" | "Update"
   event?: IEvent,
   eventId?: string
-}
+};
 
 const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([])
   const initialValues = event && type === 'Update' 
     ? { 
-      ...event, 
+      ...event,
       startDateTime: new Date(event.startDateTime), 
       endDateTime: new Date(event.endDateTime) 
     }
     : eventDefaultValues;
   const router = useRouter();
-
   const { startUpload } = useUploadThing('imageUploader')
 
   const form = useForm<z.infer<typeof eventFormSchema>>({
+    // Tells form that eventFormSchema is our validators
     resolver: zodResolver(eventFormSchema),
     defaultValues: initialValues
   })
@@ -117,6 +116,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="categoryId"
@@ -275,6 +275,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                             <FormControl>
                               <div className="flex items-center">
                                 <label htmlFor="isFree" className="whitespace-nowrap pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Free Ticket</label>
+                                
                                 <Checkbox
                                   onCheckedChange={field.onChange}
                                   checked={field.value}

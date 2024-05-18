@@ -20,6 +20,7 @@ import { deleteEvent } from '@/lib/actions/event.actions'
 
 export const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
   const pathname = usePathname()
+  // updates state without blocking the ui which will end up reloading the component in one round trip meaning youd have to bring a useeffect and refetch
   let [isPending, startTransition] = useTransition()
 
   return (

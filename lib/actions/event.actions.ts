@@ -1,13 +1,11 @@
 'use server'
-
+// reuse these actions in any components
 import { revalidatePath } from 'next/cache'
-
 import { connectToDatabase } from '@/lib/database'
 import Event from '@/lib/database/models/event.model'
 import User from '@/lib/database/models/user.model'
 import Category from '@/lib/database/models/category.model'
 import { handleError } from '@/lib/utils'
-
 import {
   CreateEventParams,
   UpdateEventParams,
@@ -21,6 +19,7 @@ const getCategoryByName = async (name: string) => {
   return Category.findOne({ name: { $regex: name, $options: 'i' } })
 }
 
+// this allows us to query for other specific information all in one query mongoose because mongodb doesnt automatically fetch the related data so oyu have to do it manually
 const populateEvent = (query: any) => {
   return query
     .populate({ path: 'organizer', model: User, select: '_id firstName lastName' })
@@ -28,17 +27,24 @@ const populateEvent = (query: any) => {
 }
 
 // CREATE
+// there is no client side api call just server side api call because nextjs has the server side actions which allow you to make an apicall on the server side rather than the client side
+
 export async function createEvent({ userId, event, path }: CreateEventParams) {
   try {
     await connectToDatabase()
-
+  // error handling if user does not exist
     const organizer = await User.findById(userId)
     if (!organizer) throw new Error('Organizer not found')
+    // if for some reaosn organizer is not found wehich means the user is not found which means a user is somehow able to create we can throw an error so that they are not allowed to do create an event
+  // this allows us to either have the new event fully created or not which try catch helps us allow
 
     const newEvent = await Event.create({ ...event, category: event.categoryId, organizer: userId })
+    // makes sure that im geting the most recent updated path refetches the update the server components does not need a 
+    // helps maintain data integrity
     revalidatePath(path)
 
     return JSON.parse(JSON.stringify(newEvent))
+
   } catch (error) {
     handleError(error)
   }
@@ -46,13 +52,13 @@ export async function createEvent({ userId, event, path }: CreateEventParams) {
 
 // GET ONE EVENT BY ID
 export async function getEventById(eventId: string) {
+
   try {
     await connectToDatabase()
 
     const event = await populateEvent(Event.findById(eventId))
 
     if (!event) throw new Error('Event not found')
-
     return JSON.parse(JSON.stringify(event))
   } catch (error) {
     handleError(error)
@@ -153,7 +159,7 @@ export async function getRelatedEventsByCategory({
 }: GetRelatedEventsByCategoryParams) {
   try {
     await connectToDatabase()
-
+    
     const skipAmount = (Number(page) - 1) * limit
     const conditions = { $and: [{ category: categoryId }, { _id: { $ne: eventId } }] }
 

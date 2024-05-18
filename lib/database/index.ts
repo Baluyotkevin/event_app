@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+// This connection allows the application to send commands and queries to the MongoDB server and receive responses.
 const MONGODB_URI = process.env.MONGODB_URI;
 
 let cached = (global as any).mongoose || { conn: null, promise: null };

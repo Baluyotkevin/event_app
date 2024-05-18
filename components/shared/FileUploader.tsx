@@ -14,7 +14,9 @@ type FileUploaderProps = {
   setFiles: Dispatch<SetStateAction<File[]>>
 }
 
+
 export function FileUploader({ imageUrl, onFieldChange, setFiles }: FileUploaderProps) {
+  // we use the callback that waits for specific files, once the file is uploaded we set the new state and when changed we create a new url
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFiles(acceptedFiles)
     onFieldChange(convertFileToUrl(acceptedFiles[0]))
@@ -22,15 +24,17 @@ export function FileUploader({ imageUrl, onFieldChange, setFiles }: FileUploader
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
+    // accepts only all types of images
     accept: 'image/*' ? generateClientDropzoneAccept(['image/*']) : undefined,
   })
 
   return (
     <div
       {...getRootProps()}
+      // accepts 
+      // if there is an imageUrl selected already itll generate the image other wise itll say select image the upload
       className="flex-center bg-dark-3 flex h-72 cursor-pointer flex-col overflow-hidden rounded-xl bg-grey-50">
       <input {...getInputProps()} className="cursor-pointer" />
-
       {imageUrl ? (
         <div className="flex h-full w-full flex-1 justify-center ">
           <img

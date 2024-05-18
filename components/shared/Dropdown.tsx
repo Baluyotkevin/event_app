@@ -31,6 +31,7 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
   const [newCategory, setNewCategory] = useState('');
 
   const handleAddCategory = () => {
+    // this allows us to call the function create category which creates it and then sets the new state rendering the added category 
     createCategory({
       categoryName: newCategory.trim()
     })
@@ -40,9 +41,10 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
   }
 
   useEffect(() => {
+    // this fetches all the categories when it first loads
     const getCategories = async () => {
       const categoryList = await getAllCategories();
-
+      //  if it exists then we set the state categories to the category list retrieved
       categoryList && setCategories(categoryList as ICategory[])
     }
 
